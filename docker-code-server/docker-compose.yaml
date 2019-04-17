@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  code-server:
+    image: kudoshunsuke/docker-code-server
+    build:
+      context: .
+    command: bash -c "/code-server/code-server /workspace --allow-http --no-auth -e /code-server/extensions -d /code-server/user-data"
+    ports:
+      - "18443:8443"
+    volumes:
+      - ./workspace:/workspace
+      - ./extensions:/code-server/extensions
+      - ./user-data:/code-server/user-data
