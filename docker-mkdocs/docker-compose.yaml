@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  dev:
+    build:
+      context: .
+    ports:
+      - "30022:22"
+      - "18000:8000"
+    command: bash -c "/usr/sbin/sshd -D"
