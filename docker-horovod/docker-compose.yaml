@@ -1,0 +1,8 @@
+version: "2.3"
+
+services:
+  horovod:
+    image: kudoshunsuke/docker-horovod
+    build:
+      context: .
+
