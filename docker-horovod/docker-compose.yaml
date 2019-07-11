@@ -5,4 +5,13 @@ services:
     image: kudoshunsuke/docker-horovod
     build:
       context: .
+    volumes:
+    - /usr/local/share/ai:/ai:rw
+    - ./.ssh:/root/.ssh:ro
+    - ./ssh:/etc/ssh:ro
+    - /tmp:/tmp
+    command: /usr/sbin/sshd -D
+    privileged: true
+    runtime: nvidia
+    shm_size: '2gb'
 
