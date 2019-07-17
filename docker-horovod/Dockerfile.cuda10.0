@@ -28,8 +28,8 @@ RUN curl -L https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.1.ta
   && ldconfig \
   && rm -rf /tmp/openmpi
 
-RUN echo 'export LD_LIBRARY_PATH=/root/local/openmpi/lib:${LD_LIBRARY_PATH}' >> ~/.bashrc \
-  && echo 'export PATH=/root/local/openmpi/bin:${PATH}' >> ~/.bashrc
+RUN echo 'export LD_LIBRARY_PATH=/usr/local/openmpi/lib:${LD_LIBRARY_PATH}' >> /root/.bashrc \
+  && echo 'export PATH=/usr/local/openmpi/bin:${PATH}' >> /root/.bashrc
 
 RUN apt install -y \
   build-essential \
