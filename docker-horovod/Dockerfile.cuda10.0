@@ -53,6 +53,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN pip install keras tensorflow-gpu
 
-RUN ldconfig /usr/local/cuda-10.0/targets/x86_64-linux/lib/stubs && \
-    PATH=$PATH HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_TENSORFLOW=1  pip install --no-cache-dir horovod && \
-    ldconfig
+RUN source $HOME/.bashrc \
+    && ldconfig /usr/local/cuda-10.0/targets/x86_64-linux/lib/stubs \
+    && PATH=$PATH HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_TENSORFLOW=1  pip install --no-cache-dir horovod \
+    && ldconfig
