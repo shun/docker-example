@@ -28,8 +28,8 @@ RUN curl -L https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.1.ta
   && ldconfig \
   && rm -rf /tmp/openmpi
 
-RUN echo 'export LD_LIBRARY_PATH=$HOME/local/openmpi/lib:${LD_LIBRARY_PATH}' >> ~/.bashrc \
-  && echo 'export PATH=$HOME/local/openmpi/bin:${PATH}' >> ~/.bashrc
+RUN echo 'export LD_LIBRARY_PATH=/root/local/openmpi/lib:${LD_LIBRARY_PATH}' >> ~/.bashrc \
+  && echo 'export PATH=/root/local/openmpi/bin:${PATH}' >> ~/.bashrc
 
 RUN apt install -y \
   build-essential \
@@ -53,7 +53,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN pip install keras tensorflow-gpu
 
-RUN source $HOME/.bashrc \
+RUN bash -c "source /root/.bashrc \
     && ldconfig /usr/local/cuda-10.0/targets/x86_64-linux/lib/stubs \
     && PATH=$PATH HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_TENSORFLOW=1  pip install --no-cache-dir horovod \
-    && ldconfig
+    && ldconfig"
