@@ -2,7 +2,7 @@ version: "2.3"
 
 services:
   horovod:
-    image: kudoshunsuke/docker-horovod
+    image: kudoshunsuke/docker-horovod:cuda10.0
     build:
       context: .
     volumes:
