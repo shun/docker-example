@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  dev:
+    build:
+      context: .
+    command: /usr/sbin/sshd -D
+    ports:
+    - "10022:22"
+    volumes:
+    - ../files/workspace:/home/dev/workspace
+    - ../files/dotconfig:/home/dev/dotconfig
+    - ../files/nvim_bin/bin:/home/dev/.local/bin
+    - ../files/nvim_bin/share:/home/dev/.local/share
+    restart: always
+    privileged: true
+
