@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    volumes:
+      - ./mosquitto:/mosquitto
+    ports:
+      - "9090:9090"
+      - "9091:9091"
+  
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/:/usr/share/nginx
+        #network_mode: host
+    ports:
+      - "10080:80"

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <!--[if lt IE 9]>
+      <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="">
+  </head>
+  <body>
+    <label onclick="aaa()">kudo</kudo>
+    <!-- Place your content here -->
+    <!-- SCRIPTS -->
+    <!-- Example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="./js/mqtt.min.js"></script>
+    <script>
+      var client = null;
+      var options = {
+        port: 9090,
+        host: "ws://192.168.1.188"
+      }
+      function aaa() {
+        client.publish("/test01", "aaa");
+      }
+      window.onload = function() {
+        client = mqtt.connect(options);
+        topics = ["/test01", "/test02"];
+        client.subscribe(topics);
+        client.publish("/test01", "aaa");
+
+        client.on('message', function(topic, payload) {
+          console.log(topic);
+          console.log(payload);
+
+          if ("/test01" == topic) {
+            console.log("01");
+          } else if ("/test02" == topic) {
+            console.log("02");
+          }
+        });
+
+
+      }
+    </script>
+  </body>
+</html>
+
