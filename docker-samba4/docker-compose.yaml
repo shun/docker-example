@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  phpldapadmin:
+    build:
+      context: ./phpldapadmin
+    ports:
+      - "10081:80"
+    command: "/usr/bin/supervisord -nc /etc/supervisor/supervisord.conf"
+    volumes:
+      - ./phpldapadmin/supervisor:/etc/supervisor:rw
+      - ./phpldapadmin/log/supervisor:/var/log/supervisor:rw
+    environment:
+      - TZ=JST-9
+
+  samba4:
+    build:
+      context: ./samba4
+    command: "/usr/bin/supervisord -nc /etc/supervisor/supervisord.conf"
+      #command: "/usr/sbin/smbd -F"
+    volumes:
+      - ./samba4/supervisor:/etc/supervisor:rw
+      - ./samba4/log/supervisor:/var/log/supervisor:rw
+    environment:
+      - TZ=JST-9
