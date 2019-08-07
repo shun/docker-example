@@ -10,3 +10,6 @@ RUN apt update \
         vim \
         winbind \
     && rm -rf /var/lib/apt/lists/*
+
+COPY ./entrypoint.sh /
+

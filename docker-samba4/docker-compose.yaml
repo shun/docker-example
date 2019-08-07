@@ -8,6 +8,7 @@ services:
       - "10081:80"
     command: "/usr/bin/supervisord -nc /etc/supervisor/supervisord.conf"
     volumes:
+      - ./phpldapadmin/ldap-account-manager:/var/lib/ldap-account-manager:rw
       - ./phpldapadmin/supervisor:/etc/supervisor:rw
       - ./phpldapadmin/log/supervisor:/var/log/supervisor:rw
     environment:
@@ -16,10 +17,19 @@ services:
   samba4:
     build:
       context: ./samba4
-    command: "/usr/bin/supervisord -nc /etc/supervisor/supervisord.conf"
-      #command: "/usr/sbin/smbd -F"
+    command: "/entrypoint.sh '/usr/bin/supervisord -nc /etc/supervisor/supervisord.conf'"
     volumes:
+      - ./samba4/samba:/etc/samba:rw
+      - ./samba4/krb5.conf:/etc/krb5.conf:rw
       - ./samba4/supervisor:/etc/supervisor:rw
       - ./samba4/log/supervisor:/var/log/supervisor:rw
     environment:
       - TZ=JST-9
+      - REALM_NAME=
+      - DOMAIN_NAME=
+      - DNS_BACKEND=
+      - SERVER_ROLE=
+      - ADMIN_PASS=
+
+    privileged: true
+
