@@ -31,5 +31,12 @@ services:
       - SERVER_ROLE=
       - ADMIN_PASS=
 
+    ports:
+      - "53:53/tcp" # DNS(tcp)
+      - "53:53/udp" # DNS(udp)
+      - "139:139"
+      - "389:389"
+      - "445:445"
+      - "636:636"
     privileged: true
 

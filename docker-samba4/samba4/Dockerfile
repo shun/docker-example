@@ -13,3 +13,5 @@ RUN apt update \
 
 COPY ./entrypoint.sh /
 
+EXPOSE 53 135 137/udp 138/udp 139 389 445 464 636
+
