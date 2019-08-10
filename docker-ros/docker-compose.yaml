@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  kinetic:
+    build:
+      context: ./kinetic
+    volumes:
+      - ./kinetic/workspace:/home/dev/workspace
+      - ./kinetic/supervisor:/etc/supervisor
+    command: /usr/bin/supervisord -nc /etc/supervisor/supervisord.conf
+    ports:
+      - "10080:80"
