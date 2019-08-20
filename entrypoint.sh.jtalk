@@ -43,3 +43,5 @@ if [ -z "$JTALK_OUTPUT" ] ; then
   cat $outfile ; rm -f $outfile
   #cat $outfile.mp3 ; rm -f $outfile.*
 fi
+
+# echo "$1" | docker-compose run --rm  jtalk >$2.wav
