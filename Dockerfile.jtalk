@@ -1,0 +1,31 @@
+FROM ubuntu:16.04
+
+RUN apt update 
+RUN apt install -y \
+      ffmpeg \
+      open-jtalk \
+      open-jtalk-mecab-naist-jdic curl \
+      lame \
+      unzip \
+      && rm -rf /usr/share/doc/* && \
+      rm -rf /usr/share/info/* && \
+      rm -rf /tmp/* && \
+      rm -rf /var/tmp/*
+
+
+RUN mkdir -p /jtalk/hts-voice
+WORKDIR /jtalk
+
+COPY ./MMDAgent_Example-1.6.zip /tmp
+RUN unzip -x /tmp/MMDAgent_Example-1.6.zip && \
+      mv /jtalk/MMDAgent_Example-1.6/Voice/mei/*.htsvoice /jtalk/hts-voice/ && \
+      rm -rf /jtalk/MMDAgent_Example-1.6
+
+COPY entrypoint.sh /jtalk/entrypoint.sh
+
+ENV JTALK_VOICE_FILE="" \
+    JTALK_VOICE_TYPE=normal \
+    JTALK_OPTION="" \
+    JTALK_OUTPUT=""
+
+ENTRYPOINT ["/jtalk/entrypoint.sh"]
