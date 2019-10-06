@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  vue:
+    build:
+      context: .
+      dockerfile: ./vue/Dockerfile
+    command: nginx -g "daemon off;"
+    ports:
+      - "10080:80"
+      - "18080:8080"
+      - "8000:8000"
+    volumes:
+      - ./vue/app:/app
+      - ./vue/nginx.conf/default.conf:/etc/nginx/conf.d/default.conf
+  mqtt:
+    build:
+      context: .
+      dockerfile: ./mqtt/Dockerfile
+
+    volumes:
+      - ./mqtt/mosquitto:/mosquitto
+    ports:
+      - "1883:1883"
+      - "9090:9090"

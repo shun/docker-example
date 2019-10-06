@@ -1,0 +1,20 @@
+{
+  "resources": [
+    "output.ogg",
+    "output.m4a",
+    "output.mp3",
+    "output.ac3"
+  ],
+  "spritemap": {
+    "tea_time": {
+      "start": 0,
+      "end": 178.77256235827664,
+      "loop": false
+    },
+    "daisougen": {
+      "start": 180,
+      "end": 369.1097505668934,
+      "loop": false
+    }
+  }
+}
