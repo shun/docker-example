@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  ros:
+    build:
+      context: .
+
+    volumes:
+      - ./supervisor:/etc/supervisor:rw
+      - ./ros_ws:/home/ros/ros_ws:rw
+      - ./rosbridge_server:/usr/local/bin/rosbridge_server:rw
+
+    command: bash -c "chown -R ros:ros /home/ros && /usr/bin/supervisord -nc /etc/supervisor/supervisord.conf"
+
+    ports:
+      - "18000:8000"
+

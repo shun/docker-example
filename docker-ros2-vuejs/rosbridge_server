@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+source /opt/ros/dashing/setup.bash
+exec ros2 run rosbridge_server rosbridge_websocket
