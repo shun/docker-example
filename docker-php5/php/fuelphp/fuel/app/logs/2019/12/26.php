@@ -1,0 +1,8 @@
+<?php defined('COREPATH') or exit('No direct script access allowed'); ?>
+
+ERROR - 2019-12-26 14:42:38 --> Error - date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/fuelphp/fuel/core/classes/fuel.php on line 162
+ERROR - 2019-12-26 14:43:36 --> Error - date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/fuelphp/fuel/core/classes/fuel.php on line 162
+ERROR - 2019-12-26 14:54:16 --> Error - date_default_timezone_get(): Invalid date.timezone value 'JST-9', we selected the timezone 'UTC' for now. in /var/www/html/fuelphp/fuel/core/classes/fuel.php on line 162
+ERROR - 2019-12-26 14:54:52 --> Error - date_default_timezone_set(): Timezone ID 'JST-9' is invalid in /var/www/html/fuelphp/fuel/core/classes/fuel.php on line 162
+WARNING - 2019-12-26 23:55:38 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2019-12-26 23:56:17 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.

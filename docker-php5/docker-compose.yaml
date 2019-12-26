@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  php:
+    build:
+      context: ./
+      dockerfile: ./php/apache/Dockerfile
+
+    volumes:
+      - ./php/fuelphp:/var/www/html/fuelphp
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./php/apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf:ro
+
+    ports:
+      - "10080:80"
+
+    environment:
+      TZ: JST-9
+
+    command: apache2ctl -D FOREGROUND
+
+
+  db:
+    image: mysql:5
+
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "dev"
+      TZ: JST-9
+
+    volumes:
+    - mysql:/var/lib/mysql
+
+    ports:
+      - "13306:3306"
+
+volumes:
+  mysql:
+    driver: "local"
