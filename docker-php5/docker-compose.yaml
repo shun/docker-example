@@ -16,6 +16,7 @@ services:
 
     environment:
       TZ: JST-9
+      XDEBUG_CONFIG: remote_host=192.168.1.188
 
     command: apache2ctl -D FOREGROUND
 
