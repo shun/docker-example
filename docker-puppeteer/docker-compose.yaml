@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  puppeteer:
+    build:
+      context: ./
+    volumes:
+      - ./js:/home/node/js:rw
+      - ./output:/home/node/output:rw
+    user: node
+    cap_add:
+      - SYS_ADMIN
+    command: bash -c "cd /home/node/output && node ../js/sample.js"
+
