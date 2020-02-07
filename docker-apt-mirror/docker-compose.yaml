@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  apt-mirror:
+    build:
+      context: ./
+    volumes:
+      - ./update_mirror.sh:/usr/local/bin/update_mirror.sh:ro
+      - ./mirror.list:/etc/apt/mirror.list:ro
+      - mirror:/var/spool/apt-mirror/mirror:rw
+    command: bash -c "apt-mirror"
+    environment:
+      TZ: JST-9
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - mirror:/var/spool/apt-mirror/mirror:ro
+      - ./apt-mirror.conf:/etc/nginx/conf.d/apt-mirror.conf:ro
+    ports:
+      - "10080:80"
+    environment:
+      TZ: JST-9
+
+volumes:
+  mirror:
+    driver: "local"
