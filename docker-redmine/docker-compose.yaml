@@ -1,0 +1,74 @@
+version: "3.7"
+
+x-common:
+  - &DB_ROOTPASS passw0rd
+  - &DB_PASS passw0rd
+  - &DB_USER redmine
+  - &DB_NAME redmine_production
+
+services:
+  redmine:
+    image: kudoshunsuke/redmine:4.1
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.redmine
+    #  args:
+    #    http_proxy: ${http_proxy}
+    #    https_proxy: ${http_proxy}
+    environment:
+      TZ: Asia/Tokyo
+      DB_ADAPTER: postgresql
+      DB_ENCODING: utf8
+      DB_CHARSET: utf8
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: *DB_NAME
+      DB_USER: *DB_USER
+      DB_PASS: *DB_PASS
+    entrypoint: /entrypoint.sh
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh:ro
+      - ./assets:/assets:ro
+      - ./supervisor/conf.d:/etc/supervisor/conf.d:ro
+    command: ["/usr/bin/supervisord", "-nc", "/etc/supervisor/supervisord.conf"]
+    #command: bash
+    tty: true
+    ports:
+      - "10080:3000"
+
+  postgres:
+    image: kudoshunsuke/postgresql:13
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.postgresql
+
+    #restart: always
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_PASSWORD: *DB_PASS
+      POSTGRES_USER: *DB_USER
+      POSTGRES_DB: *DB_NAME
+    volumes:
+      - db:/var/lib/postgresql
+
+  chupa-text-proxy:
+    #restart: always
+    image: groonga/chupa-text:proxy
+    environment:
+      TZ: Asia/Tokyo
+
+  chupa-text:
+    #restart: always
+    image: groonga/chupa-text:ubuntu-latest
+    depends_on:
+      - chupa-text-proxy
+    environment:
+      TZ: Asia/Tokyo
+      http_proxy: http://chupa-text-proxy:3128/
+      https_proxy: http://chupa-text-proxy:3128/
+      RAILS_SERVE_STATIC_FILES: "true"
+
+volumes:
+  db:
+    driver: "local"
+

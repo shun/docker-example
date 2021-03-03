@@ -1,0 +1,19 @@
+FROM redmine:4.1
+
+COPY ./policy.patch /tmp
+RUN apt update \
+    && apt upgrade -y \
+    && apt install -y \
+        gcc \
+        git \
+        libmagic-dev \
+        make \
+        patch \
+        postgresql-client \
+        sudo \
+        supervisor \
+    && rm -rf /var/lib/apt/lists/* \
+    && patch -u /etc/ImageMagick-6/policy.xml < /tmp/policy.patch
+
+ENV REDMINE_ROOT_PATH=/usr/src/redmine
+ENV REDMINE_USER=redmine
