@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eu
 
+RELATIVE_URL_ROOT=${RELATIVE_URL_ROOT:-}
+
 ## DATABASE
 DB_ADAPTER=${DB_ADAPTER:-}
 DB_ENCODING=${DB_ENCODING:-}
@@ -32,6 +34,12 @@ SMTP_ENABLED=${SMTP_ENABLED:-false}
 init_config() {
   cp /assets/redmine/config/database.yml.org $REDMINE_ROOT_PATH/config/database.yml
   cp /assets/redmine/config/configuration.yml.org $REDMINE_ROOT_PATH/config/configuration.yml
+  cp /assets/passenger-nginx-config.erb.org /passenger-nginx-config.erb
+}
+
+setup_passenger() {
+  local fpath=/passenger-nginx-config.erb
+  sed -ri "s/[{]{2} ?RELATIVE_URL_ROOT ?[}]{2}/$RELATIVE_URL_ROOT/g" $fpath
 }
 
 setup_configuration() {
@@ -93,6 +101,7 @@ wait_db() {
 }
 
 init_config
+setup_passenger
 setup_database
 setup_configuration
 

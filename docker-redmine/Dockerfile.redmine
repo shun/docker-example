@@ -1,4 +1,4 @@
-FROM redmine:4.1
+FROM redmine:4.1-passenger
 
 COPY ./policy.patch /tmp
 RUN apt update \
